@@ -27,7 +27,8 @@
 	// View -> Model
 	$(document).on('keyup change', '[data-hook="app-state"]', function(e) {
 		var $target = $(e.target);
-		AppStateModel.setState($target.attr('name'), $target.val(), e.target.localName);
+		var val = $target.prop('type') == "checkbox" ? $target.prop('checked') : $target.val();
+		AppStateModel.setState($target.attr('name'), val, e.target.localName);
 	});
 
 	$('#appstringsubmit').click(function() {
@@ -42,7 +43,15 @@
 	$(document).on('appstate:constructed', function(e, stateObj) {
 		$.each(stateObj, function(type, obj) {
 			$.each(obj, function(name, value) {
-				$(type + '[name="' + name + '"]').val(value);
+
+				$el = $(type + '[name="' + name + '"]');
+				
+				if ($el.prop('type') == "checkbox") {
+					$el.prop('checked', value);
+				} else {
+					$el.val(value);
+				}
+				
 			});
 		});
 	});
