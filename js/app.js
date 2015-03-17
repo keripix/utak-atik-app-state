@@ -7,14 +7,13 @@
 		return {
 			setState: function(key, value, elType) {
 				appState[elType] || (appState[elType] = {});
-
 				appState[elType][key] = value;
-				console.log(appState);
+
 				$(document).trigger('appstate:changed', [key, value, elType]);
 			},
 			constructState: function(stateObj) {
 				appState = JSON.parse(global.atob(stateObj));
-
+				console.log(appState);
 				$(document).trigger('appstate:constructed', [appState]);
 			},
 			getStateString: function() {
@@ -28,7 +27,7 @@
 	// View -> Model
 	$(document).on('keyup', '[data-hook="app-state-text"]', function(e) {
 		var $target = $(e.target);
-		AppStateModel.setState($target.attr('name'), $target.val(), 'text');
+		AppStateModel.setState($target.attr('name'), $target.val(), 'input');
 	});
 
 	$('#appstringsubmit').click(function() {
@@ -41,11 +40,16 @@
 
 	// Model -> View
 	$(document).on('appstate:constructed', function(e, stateObj) {
-		$.each(stateObj, function(name, value) {
-			$('input[name="' + name + '"]').val(value);
+		$.each(stateObj, function(type, obj) {
+			$.each(obj, function(name, value) {
+				$(type + '[name="' + name + '"]').val(value);
+			});
 		});
 	});
 
-	
+	// DOM
+	$('form').submit(function(e) {
+		e.preventDefault();
+	});
 
 })(this, $);
