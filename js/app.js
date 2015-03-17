@@ -8,12 +8,12 @@
 			setState: function(key, value, elType) {
 				appState[elType] || (appState[elType] = {});
 				appState[elType][key] = value;
-				console.log(appState);
+				
 				$(document).trigger('appstate:changed', [key, value, elType]);
 			},
 			constructState: function(stateObj) {
 				appState = JSON.parse(global.atob(stateObj));
-				console.log(appState);
+				
 				$(document).trigger('appstate:constructed', [appState]);
 			},
 			getStateString: function() {
