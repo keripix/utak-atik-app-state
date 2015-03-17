@@ -22,15 +22,11 @@
 	})();
 
 	// Presenter-like functionalities
+	// 
+	// View -> Model
 	$(document).on('keyup', '[data-hook="app-state"]', function(e) {
 		var $target = $(e.target);
 		AppStateModel.setState($target.attr('name'), $target.val());
-	});
-
-	$(document).on('appstate:constructed', function(e, stateObj) {
-		$.each(stateObj, function(name, value) {
-			$('input[name="' + name + '"]').val(value);
-		});
 	});
 
 	$('#appstringsubmit').click(function() {
@@ -40,5 +36,14 @@
 	$('#appstringget').click(function() {
 		$('#appstring').val(AppStateModel.getStateString());
 	});
+
+	// Model -> View
+	$(document).on('appstate:constructed', function(e, stateObj) {
+		$.each(stateObj, function(name, value) {
+			$('input[name="' + name + '"]').val(value);
+		});
+	});
+
+	
 
 })(this, $);
