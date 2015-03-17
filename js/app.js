@@ -5,10 +5,12 @@
 		var appState = {};
 
 		return {
-			setState: function(key, value) {
-				appState[key] = value;
+			setState: function(key, value, elType) {
+				appState[elType] || (appState[elType] = {});
 
-				$(document).trigger('appstate:changed', [key, value]);
+				appState[elType][key] = value;
+				console.log(appState);
+				$(document).trigger('appstate:changed', [key, value, elType]);
 			},
 			constructState: function(stateObj) {
 				appState = JSON.parse(global.atob(stateObj));
@@ -24,9 +26,9 @@
 	// Presenter-like functionalities
 	// 
 	// View -> Model
-	$(document).on('keyup', '[data-hook="app-state"]', function(e) {
+	$(document).on('keyup', '[data-hook="app-state-text"]', function(e) {
 		var $target = $(e.target);
-		AppStateModel.setState($target.attr('name'), $target.val());
+		AppStateModel.setState($target.attr('name'), $target.val(), 'text');
 	});
 
 	$('#appstringsubmit').click(function() {

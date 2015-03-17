@@ -2,14 +2,47 @@
 <html>
 <head>
 	<title>App State</title>
+	<link rel="stylesheet" type="text/css" href="css/pure.min.css">
+	<style type="text/css">
+		.container {
+			width: 70%;
+			margin: 0 auto;
+		}
+	</style>
 </head>
 <body>
-	Filter <input name="filter" data-hook="app-state">
-	Query  <input name="query" data-hook="app-state">
-	App String <input id="appstring">
-	<button id="appstringsubmit">Construct</button>
-	<button id="appstringget">Get App State</button>
-	<script type="text/javascript" src="jquery.min.js"></script>
-	<script type="text/javascript" src="app.js"></script>
+	<div class="container">
+		<form class="pure-form pure-form-aligned">
+			<fieldset>
+				<div class="pure-control-group">
+					<label for="filter">Filter</label>
+					<input id="filter" name="filter" placeholder="Filter" data-hook="app-state-text">
+				</div>
+				<div class="pure-control-group">
+					<label for="query">Query</label>
+					<input id="query" name="query" placeholder="Query" data-hook="app-state-text">
+				</div>
+				
+			</fieldset>
+		</form>
+		<form class="pure-form pure-form-aligned">
+			<fieldset>
+				<legend>App String Form</legend>
+
+				<div class="pure-control-group">
+					<label for="appstring">App String</label>
+					<textarea id="appstring" name="appstring"></textarea>
+				</div>
+
+				<div class="pure-controls">
+					<button id="appstringsubmit" class="pure-button">Construct</button>
+					<button id="appstringget" class="pure-button">Get App State</button>	
+				</div>
+			</fieldset>	
+		</form>
+	</div>
+	
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>
