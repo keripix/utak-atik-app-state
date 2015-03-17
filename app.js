@@ -11,12 +11,12 @@
 				$(document).trigger('appstate:changed', [key, value]);
 			},
 			constructState: function(stateObj) {
-				appState = JSON.parse(stateObj);
+				appState = JSON.parse(global.atob(stateObj));
 
 				$(document).trigger('appstate:constructed', [appState]);
 			},
 			getStateString: function() {
-				return JSON.stringify(appState);
+				return global.btoa(JSON.stringify(appState));
 			}
 		};
 	})();
